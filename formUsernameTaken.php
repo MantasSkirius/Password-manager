@@ -8,6 +8,7 @@ require __DIR__ . '/autoload.php';
   </head>
   <body>
   <h4>Registracija</h4>
+  <p>Vardas jau užtimtas. Rinkitės kitą.</p>
 	<p>Iveskite prisijungimo duomenis</p>
     <form method="post" action="<?php echo htmlspecialchars("index.php");?>">
       Vardas: <input name="username" /><br />
