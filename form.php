@@ -17,5 +17,3 @@ require __DIR__ . '/autoload.php';
     </form>
   </body>
 </html>
-
-

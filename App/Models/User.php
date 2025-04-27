@@ -9,6 +9,7 @@ class User extends AbstractUser implements AuthInterface{
   protected $name;
   protected $password;
   protected $conn;
+  protected $key;
   public function __construct($name, $password, $doRegister, $conn){
     $this->name = $name;
     $this->password = password_hash($password, PASSWORD_DEFAULT);

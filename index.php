@@ -6,6 +6,7 @@ use App\Services\FormValidation;
     use App\Models\User;
     use App\Services\UserAuthentication;
     use App\Core\Database;
+    use App\Core\RandomString;
     //skaičiu pasirinkimas:
     $pradinisSkaicius = $galinisSkaicius = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,7 +20,8 @@ use App\Services\FormValidation;
         $db = new connectToDB;
         $conn = $db->getConnection();
         $vartotojas = new User($name, $password, $doRegister, $conn);
-        
+        $atsitiktinisSkaicius = new RandomString(10);
+        print("atsitiktinis skaicius: ".$atsitiktinisSkaicius->getStringas()."<br>");
     }
     
 ?>
