@@ -1,8 +1,11 @@
 <?php
     require 'autoload.php';
-    use App\Services\FormValidation;
+
+use App\Core\connectToDB;
+use App\Services\FormValidation;
     use App\Models\User;
     use App\Services\UserAuthentication;
+    use App\Core\Database;
     //skaičiu pasirinkimas:
     $pradinisSkaicius = $galinisSkaicius = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -11,9 +14,11 @@
         $validatorius = new FormValidation;
         $name = $validatorius->testuotiGautusDuomenis($_POST["username"]);
         $password = $validatorius->testuotiGautusDuomenis($_POST["password"]);
-        $doRegister = $_POST["doRegister"];
+        $doRegister = $validatorius->testuotiGautusDuomenis($_POST["doRegister"]);
         echo "vardas: ".$_POST["username"]." slaptazodis: ".$_POST["password"]."<br>";
-        $vartotojas = new User($name, $password, $doRegister);
+        $db = new connectToDB;
+        $conn = $db->getConnection();
+        $vartotojas = new User($name, $password, $doRegister, $conn);
         
     }
     
