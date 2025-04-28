@@ -29,8 +29,9 @@ COMMIT;
 
 CREATE TABLE `passwords` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
   `site` varchar(255) NOT NULL,
+  `date` datetime NOT NULL,
   `encrypted_password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
