@@ -27,7 +27,7 @@ class Password {
 	if ($conn->query($sql) == TRUE) {
         print("Naujas įrašas sukurtas sėkmingai<br>");
         print("<br>".$this->key);
-        print("<a href=listPasswords.php>Slaptažodžių sąrašas</a>");
+        print("<br><a href=listPasswords.php>Slaptažodžių sąrašas</a>");
     }
     }
 

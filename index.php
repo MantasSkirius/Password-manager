@@ -10,7 +10,6 @@ use App\Services\FormValidation;
     $pradinisSkaicius = $galinisSkaicius = "";
     global $vartotojas;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        
         $validatorius = new FormValidation;
         $name = $validatorius->testuotiGautusDuomenis($_POST["username"]);
         $password = $validatorius->testuotiGautusDuomenis($_POST["password"]);
@@ -21,7 +20,7 @@ use App\Services\FormValidation;
         $doRegister, $conn);
         $_SESSION['active_user']=$name;
         $atsitiktinisSkaicius = new RandomString(10);
-       print("<a href=listPasswords.php>Slaptažodžių sąrašas</a>");
+        print("<a href=listPasswords.php>Slaptažodžių sąrašas</a>");
         exit;
     }
     
