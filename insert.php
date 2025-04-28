@@ -3,7 +3,7 @@
 	
   // include 'index.php';
 
-use App\Core\Password;
+use App\Models\Password;
 use App\Services\FormValidation;
 	$validatorius = new formValidation;
 	print(var_dump($validatorius));

@@ -2,7 +2,6 @@
 namespace App\Models;
 use App\Core\AbstractUser;
 use App\Core\AuthInterface;
-use App\Core\Database;
 use App\Core\RandomString;
 use PDO;
 
