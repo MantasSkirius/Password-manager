@@ -6,8 +6,9 @@ use App\Services\FormValidation;
     use App\Models\User;
     use App\Core\RandomString;
     //skaičiu pasirinkimas:
+    session_start();
     $pradinisSkaicius = $galinisSkaicius = "";
-    global $conn, $vartotojas;
+    global $vartotojas;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $validatorius = new FormValidation;
@@ -16,11 +17,10 @@ use App\Services\FormValidation;
         $doRegister = $validatorius->testuotiGautusDuomenis($_POST["doRegister"]);
         $db = new connectToDB();
         $conn = $db->getConnection();
-        $vartotojas = new User($name, $password, $doRegister, $conn);
+        $vartotojas = new User($name, $password, 
+        $doRegister, $conn);
+        $_SESSION['active_user']=$name;
         $atsitiktinisSkaicius = new RandomString(10);
-        // include 'insert.php';
-        //
-        //
        print("<a href=listPasswords.php>Slaptažodžių sąrašas</a>");
         exit;
     }

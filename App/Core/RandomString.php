@@ -5,10 +5,10 @@ private $lowercase = 'abcdefghijklmnopqrstuvwxyz';
 private $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 private $numbers = '0123456789';
 private $specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-private $lowercase_number= 3;
-private $uppercase_number = 2;
-private $numbers_number = 5;
-private $specialChars_number = 6;
+private $lowercase_number= 4;
+private $uppercase_number = 0;
+private $numbers_number = 4;
+private $specialChars_number = 0;
 private $max_length;
 private $stringas = '';
 public function __construct($length) {
@@ -47,6 +47,23 @@ public function __construct($length) {
         }else{
           $i--;
         }
+        break;
+    }
+  }
+  for($i = strlen($this->stringas); $i < $length; $i++){
+    $pasirinkimas = random_int(0, 3);
+    switch($pasirinkimas){
+      case 0:
+        $this->stringas .= $this->lowercase[random_int(0, strlen($this->lowercase) - 1)];
+        break;
+      case 1:
+        $this->stringas .= $this->uppercase[random_int(0, strlen($this->uppercase) - 1)];
+        break;
+      case 2:
+        $this->stringas .= $this->numbers[random_int(0, strlen($this->numbers) - 1)];
+        break;
+      case 3:
+        $this->stringas .= $this->specialChars[random_int(0, strlen($this->specialChars) - 1)];
         break;
     }
   }
