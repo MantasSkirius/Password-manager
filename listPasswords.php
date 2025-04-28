@@ -1,7 +1,7 @@
 <?php
 include "index.php";
 use App\Core\connectToDB;
-session_start();
+// session_start();
 print ("<a href=FormInsertPassword.php> Naujas irasas </a> <br>");
 
 	$sql="SELECT * FROM passwords WHERE user_name = '".$_SESSION['active_user']."'";
@@ -17,13 +17,13 @@ print ("<a href=FormInsertPassword.php> Naujas irasas </a> <br>");
 	$key = 	$_SESSION['key'];
 	//isvedimas
 	 foreach ($data as $row) {
-	  echo $row['id']." ";
-	  echo $row['user_name']." ";
-	  echo $row['site']." ";
-	  echo $row['date']." ";
+	  echo $row['id']." | "; 
+		echo $row['date']." | ";
+	  echo $row['user_name']." | ";
+	  echo $row['site']." | ";
 		echo openssl_decrypt($row['encrypted_password'], 'AES-256-ECB', $key, 0)." ";
 	  $id=$row['id'];
-	  print ("<a href=remove.php?id=$id> Trinti </a> ");
-	  print ("<a href=edit.php?id=$id> Keisti </a>" . "<br>");
+	  print ("<a href=removePassword.php?id=$id> Trinti </a> ");
+	  print ("<a href=editPassword.php?id=$id> Keisti </a>" . "<br>");
   }
 ?>
