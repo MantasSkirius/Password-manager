@@ -4,7 +4,7 @@ use App\Core\AbstractUser;
 use App\Core\AuthInterface;
 use App\Core\RandomString;
 use PDO;
-
+session_start();
 class User extends AbstractUser implements AuthInterface{
   protected $name;
   protected $password;

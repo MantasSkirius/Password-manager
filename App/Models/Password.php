@@ -27,7 +27,6 @@ class Password {
 	$sql="INSERT INTO passwords (user_name, site, date ,encrypted_password) VALUES ('".$this->user_name."','".$this->siteName."','".$this->date."','".$this->sitePassword."')";
 	if ($this->conn->query($sql) == TRUE) {
         print("Naujas įrašas sukurtas sėkmingai<br>");
-        print("<br>".$this->key);
         print("<br><a href=listPasswords.php>Slaptažodžių sąrašas</a>");
     }
     }

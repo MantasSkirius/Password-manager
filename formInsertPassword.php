@@ -1,17 +1,12 @@
 <?php
-require __DIR__ . '/autoload.php';
+	require 'autoload.php';
+  use App\Core\RandomString;
+  $suggested_password = new RandomString(15);
+  $suggested_password = $suggested_password->getStringas();
+		print ("<FORM METHOD=POST  ACTION='insert.php'>");
+				print("Svetainė: <INPUT TYPE='text' NAME='loginName'>");
+				print ("<br>Password: <INPUT TYPE='text' NAME='sitePassword' value='$suggested_password' > ");
+				print ("<br> <INPUT TYPE='submit' VALUE='Kurti'>");
+		print ("</FORM>");
+		print ("<a href=listPasswords.php> Sąrasas </a>");
 ?>
-
-<html>
-  <head>
-    <meta charset="UTF-8" />
-  </head>
-  <body>
-	<p>Iveskite prisijungimo duomenis, kuriuos norite saugoti</p>
-    <form method="post" action="<?php echo htmlspecialchars("insert.php");?>">
-      pavadinimas: <input name="loginName" /><br />
-      Slaptažodis: <input name="sitePassword" /><br />
-      <input type="submit" />
-    </form>
-  </body>
-</html>

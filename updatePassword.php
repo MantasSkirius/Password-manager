@@ -1,14 +1,18 @@
 <?php
-include "connect.php";
-
+	require 'autoload.php';
+	session_start();
+	use App\Core\connectToDB;
+	$conn = new connectToDB();
+	$conn = $conn->getConnection();
+	$key = $_SESSION['key'];
 	$id=$_POST["id"];
-	$site=$_POST["site"];
-	$encrypted_password=$_POST["encrypted_password"];
-	
-	$sql=("UPDATE passwords SET site ='$title', encrypted_password '$encrypted_password' WHERE id=$id");
+	$site=$_POST["loginName"];
+	$new_password=$_POST["new_password"];
+	$encrypted_password = openssl_encrypt($new_password, 'AES-256-ECB', $key, 0);
+	$sql=("UPDATE passwords SET site ='$site', encrypted_password = '$encrypted_password' WHERE id=$id");
 	if ($conn->query($sql) == TRUE) {
 			print ("Atnaujintas: $id <br>" );
-			print ("<a href=lostPasswords.php> Sarasas </a>");	
+			print ("<a href=listPasswords.php> Sarasas </a>");	
 		}
 		else
 		{
