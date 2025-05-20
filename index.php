@@ -19,8 +19,6 @@ use App\Services\FormValidation;
         $vartotojas = new User($name, $password, 
         $doRegister, $conn);
         $_SESSION['active_user']=$name;
-        $atsitiktinisSkaicius = new RandomString(10);
-        print("<a href=listPasswords.php>Slaptažodžių sąrašas</a>");
         exit;
     }
     

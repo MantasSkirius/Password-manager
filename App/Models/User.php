@@ -4,7 +4,6 @@ use App\Core\AbstractUser;
 use App\Core\AuthInterface;
 use App\Core\RandomString;
 use PDO;
-session_start();
 class User extends AbstractUser implements AuthInterface{
   protected $name;
   protected $password;
@@ -14,26 +13,29 @@ class User extends AbstractUser implements AuthInterface{
     $this->name = $name;
     $this->password = $password;
     $this->conn = $conn;
-    print("test: ".$this->name." ".$doRegister."<br>");
     if($doRegister=="TRUE"){
-      print("register: ".$this->name." ".$this->password."<br>");
+
       if(!$this->saveToDB()){
         $this->logout();
       } 
    }else{
       $this->password = password_hash($password, PASSWORD_DEFAULT);
-      print("login: ".$this->name." ".$this->password."<br>");
-      $this->login($name, $password);
+      if($this->login($name, $password)){
+        print("Vartotojas prisijungė: ".$name."<br>");
+        print ("<a href=list.php> Sarasas </a>");
+      }
+      else{
+        print ("<a href=form.php> Bandykite dar kartą </a>");
+      }
    }
     
   }
   function logout(){
-    header("Location: formUsernameTaken.php");
+    header("Location: form.php");
     exit;
   }
 
   function login($name, $password){
-    print("Vartotojas bando jungtis: ".$name."<br>");
     $sql = "SELECT * FROM users WHERE name = '$name'";
     $stmt = $this->conn->query($sql);
     if ($stmt->rowCount() > 0) {
@@ -56,7 +58,6 @@ class User extends AbstractUser implements AuthInterface{
     $password=$this->password;
     $key = new RandomString(128);
     $key = $key->getStringas();
-    print("key: ".$key."<br>password:".$password."<br>");
     //Patikrinu, ar vartotojas jau egzistuoja duomenų bazėje:
     $sql = "SELECT * FROM users WHERE name = '$name'";
     $stmt = $this->conn->query($sql);
@@ -71,7 +72,7 @@ class User extends AbstractUser implements AuthInterface{
     if ($this->conn->query($sql) == TRUE) {
 	  	print ("<br>Naujas irasas sukurtas<br>");
       return true;
-	  	print ("<a href=list.php> Sarasas </a>");
+	  	print ("<a href=list.php> Slaptažodžių sąrasas </a>");
   	} else {
 	  	print ("Klaida");
       return false;

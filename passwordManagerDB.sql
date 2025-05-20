@@ -16,8 +16,13 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `raktas` varchar(255) NOT NULL
+  `raktas` varchar(255) NOT NULL,
+  `lowercase_number` int(255) DEFAULT 3,
+  `uppercase_number` int(255) DEFAULT 3,
+  `special_number` int(255) DEFAULT 3,
+  `numbers_number` int(255) DEFAULT 3
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);

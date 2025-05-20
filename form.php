@@ -9,7 +9,7 @@ require __DIR__ . '/autoload.php';
   <body>
 	<p>Iveskite prisijungimo duomenis</p>
     <form method="post" action="<?php echo htmlspecialchars("index.php");?>">
-      Vardas: <input name="username" /><br />
+      Vardas: <input name="username" required/><br />
       Slaptažodis: <input required type="password" name="password" /><br />
       <input type="hidden" name="doRegister" value="FALSE" /><!--Hidden input reikia, kad doRegister kintamasis turėtų FALSE pradinę reikšmę.-->
       Registruotis? <input type="checkbox" name="doRegister" value="TRUE"/><br/>
