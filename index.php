@@ -1,26 +1,19 @@
 <?php
-    require 'autoload.php';
-
-use App\Core\connectToDB;
-use App\Services\FormValidation;
-    use App\Models\User;
-    use App\Core\RandomString;
-    //skaičiu pasirinkimas:
-    session_start();
-    $pradinisSkaicius = $galinisSkaicius = "";
-    global $vartotojas;
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $validatorius = new FormValidation;
-        $name = $validatorius->testuotiGautusDuomenis($_POST["username"]);
-        $password = $validatorius->testuotiGautusDuomenis($_POST["password"]);
-        $doRegister = $validatorius->testuotiGautusDuomenis($_POST["doRegister"]);
-        $db = new connectToDB();
-        $conn = $db->getConnection();
-        $vartotojas = new User($name, $password, 
-        $doRegister, $conn);
-        $_SESSION['active_user']=$name;
-        exit;
-    }
-    
+require __DIR__ . '/autoload.php';
 ?>
 
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+	<p>Iveskite prisijungimo duomenis</p>
+    <form method="post" action="<?php echo htmlspecialchars("createUser.php");?>">
+      Vardas: <input name="username" required/><br />
+      Slaptažodis: <input required type="password" name="password" /><br />
+      <input type="hidden" name="doRegister" value="FALSE" /><!--Hidden input reikia, kad doRegister kintamasis turėtų pradinę reikšmę FALSE  .-->
+      Registruotis? <input type="checkbox" name="doRegister" value="TRUE"/><br/>
+      <input type="submit" />
+    </form>
+  </body>
+</html>

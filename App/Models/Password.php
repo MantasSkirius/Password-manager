@@ -1,8 +1,10 @@
 <?php
 namespace App\Models;
+
+use App\Core\AbstractDatabaseObject;
 use App\Core\connectToDB;
 session_start();
-class Password {
+class Password extends AbstractDatabaseObject{
     private $siteName;
     private $sitePassword;
     private $date;
@@ -23,7 +25,7 @@ class Password {
         $this->saveToDb();
     }
 
-    private function saveToDb(){
+    protected function saveToDb(){
 	$sql="INSERT INTO passwords (user_name, site, date ,encrypted_password) VALUES ('".$this->user_name."','".$this->siteName."','".$this->date."','".$this->sitePassword."')";
 	if ($this->conn->query($sql) == TRUE) {
         print("Naujas įrašas sukurtas sėkmingai<br>");

@@ -1,10 +1,10 @@
 <?php
 namespace App\Models;
-use App\Core\AbstractUser;
+use App\Core\AbstractDatabaseObject;
 use App\Core\AuthInterface;
 use App\Core\RandomString;
 use PDO;
-class User extends AbstractUser implements AuthInterface{
+class User extends AbstractDatabaseObject implements AuthInterface{
   protected $name;
   protected $password;
   protected $conn;
@@ -14,7 +14,6 @@ class User extends AbstractUser implements AuthInterface{
     $this->password = $password;
     $this->conn = $conn;
     if($doRegister=="TRUE"){
-
       if(!$this->saveToDB()){
         $this->logout();
       } 
@@ -25,17 +24,17 @@ class User extends AbstractUser implements AuthInterface{
         print ("<a href=list.php> Sarasas </a>");
       }
       else{
-        print ("<a href=form.php> Bandykite dar kartą </a>");
+        print ("<a href=index.php> Bandykite dar kartą </a>");
       }
    }
     
   }
-  function logout(){
-    header("Location: form.php");
+  public function logout(){
+    print ("<a href=index.php> Bandykite dar kartą </a>");
     exit;
   }
 
-  function login($name, $password){
+  public function login($name, $password){
     $sql = "SELECT * FROM users WHERE name = '$name'";
     $stmt = $this->conn->query($sql);
     if ($stmt->rowCount() > 0) {
@@ -53,15 +52,17 @@ class User extends AbstractUser implements AuthInterface{
     }
   }
 
-  function saveToDB(){
+  protected function saveToDB(){
     $name=$this->name;
     $password=$this->password;
+    //Raktas yr 128 simbolių ilgio atsitiktinis tekstas, užkoduojamas AES kaip rakta naudojant PLAIN slaptąžodį:
     $key = new RandomString(128);
     $key = $key->getStringas();
     //Patikrinu, ar vartotojas jau egzistuoja duomenų bazėje:
     $sql = "SELECT * FROM users WHERE name = '$name'";
     $stmt = $this->conn->query($sql);
     if ($stmt->rowCount() > 0) {
+        print("Vartotojas jau egzistuoja<br>");
         return false;
     }
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -70,9 +71,9 @@ class User extends AbstractUser implements AuthInterface{
     
     $sql="INSERT INTO users (name, password, raktas) VALUES ('".$name."','".$hashedPassword."','".$encryptedKey."')";
     if ($this->conn->query($sql) == TRUE) {
-	  	print ("<br>Naujas irasas sukurtas<br>");
+	  	print ("Naujas įrašas sukurtas<br>");
+	  	print ("<a href=listPasswords.php> Slaptažodžių sąrasas </a>");
       return true;
-	  	print ("<a href=list.php> Slaptažodžių sąrasas </a>");
   	} else {
 	  	print ("Klaida");
       return false;
