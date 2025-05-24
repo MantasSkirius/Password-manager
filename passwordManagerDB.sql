@@ -36,7 +36,7 @@ CREATE TABLE `passwords` (
   `user_name` varchar(255) NOT NULL,
   `site` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
-  `encrypted_password` varchar(255) NOT NULL
+  `encrypted_password` varchar(1023) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `passwords`

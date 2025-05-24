@@ -21,16 +21,16 @@ class User extends AbstractDatabaseObject implements AuthInterface{
       $this->password = password_hash($password, PASSWORD_DEFAULT);
       if($this->login($name, $password)){
         print("Vartotojas prisijungė: ".$name."<br>");
-        print ("<a href=list.php> Sarasas </a>");
+        print ("<a href=listPasswords.php> Sąrašas </a>");
       }
       else{
-        print ("<a href=index.php> Bandykite dar kartą </a>");
+        print ("<a href=loginForm.php> Bandykite dar kartą </a>");
       }
    }
     
   }
   public function logout(){
-    print ("<a href=index.php> Bandykite dar kartą </a>");
+    print ("<a href=loginForm.php> Bandykite dar kartą </a>");
     exit;
   }
 

@@ -1,7 +1,7 @@
 <?php
-include "index.php";
+require 'autoload.php';
 use App\Core\connectToDB;
-// session_start();
+session_start();
 print ("<a href=FormInsertPassword.php> Naujas irasas </a> <br>");
 
 	$sql="SELECT * FROM passwords WHERE user_name = '".$_SESSION['active_user']."'";
